@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: lab3-async
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  artemis:
+    mode: embedded
+    enabled: true
+    host: localhost
+    port: 61616
+    embedded:
+      persistent: false
+      queues: email.queue,report.queue
+      topics: customer.events.topic
+
+  jms:
+    listener:
+      auto-startup: true
+
+app:
+  queue:
+    email: email.queue
+    report: report.queue
+  topic:
+    customer-events: customer.events.topic
+
+logging:
+  level:
+    com.example.lab3: DEBUG
+    org.springframework.jms: DEBUG
